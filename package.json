@@ -1,0 +1,26 @@
+{
+  "name": "email-survey-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "8.1.1",
+    "npm": "5.0.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dacup72/email-survey-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dacup72/email-survey-manager/issues"
+  },
+  "homepage": "https://github.com/dacup72/email-survey-manager#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
