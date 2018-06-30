@@ -2,7 +2,12 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
-const util = require('util');
+const mongoose = require('mongoose');
+
+
+// Gaining access to the user model class (collection)
+// Having one argument for .model() means we are fetching data from that collection
+const User = mongoose.model('users');
 
 // Configuration for Google authentication
 passport.use(new GoogleStrategy({
@@ -11,10 +16,8 @@ passport.use(new GoogleStrategy({
   callbackURL: '/auth/google/callback'
 }, 
 // Recieves the tokens and profile object for the user after /auth/google/callback route.
+// Creates and saves new User collection instance for the specific user to the users collection.
 (accessToken, refreshToken, profile, done) => {
-  console.log('accessToken: ' + accessToken);
-  console.log('refreshToken: ' + refreshToken);
-  // Util.inspect method is used to view full object in terminal.
-  console.log('profile: ' + util.inspect(profile, false, null));
+  new User({googleId: profile.id}).save();
 })
 );
