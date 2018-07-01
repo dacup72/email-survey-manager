@@ -2,6 +2,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
+// Cookie based session middleware 
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 
 // Initialize mongoose / mongoDB collection for users
 require('./models/User');
@@ -9,21 +12,28 @@ require('./models/User');
 // Initialize Passport.js config
 require('./services/passport');
 
-const mongoURI = process.env.MONGODB_URI || keys.mongoURI;
-// Connect mongoose to mLab cloud database
-// mongoose.connect(mongoURI).catch(function(err) {
-  // If the connection to mLab fails connect to localhost database
-  // if(err) {
-  //   console.log('Connection error: ' + err);
-    mongoose.connect('mongodb://localhost/emailsurveymanager');
-    // console.log('Database connected on Localhost');
-  // } else {
-  //   console.log('Database connected to mLab');
-  // }
-// });
+// Assign mongoURI to either Heroku mLab or local mongo database
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/emailsurveymanager';
+// Connect to chosen mongoURI
+mongoose.connect(mongoURI);
 
 // Initializes express 
 const app = express();
+
+// Set up cookie session
+app.use(
+  // Extracts cookie data and assigns it to req.session
+  cookieSession({
+    // Cookies will last 30 days before they expire
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    // Automatically encripts the cookie
+    keys: [keys.cookieKey]
+  })
+);
+
+// Initialize Passport with Express
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 require('./routes/authRoutes')(app); 
