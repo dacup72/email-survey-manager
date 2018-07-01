@@ -28,10 +28,12 @@ passport.deserializeUser((id, done) => {
 });
 
 // Configuration for Google authentication
-passport.use(new GoogleStrategy({
+passport.use(new GoogleStrategy(
+  {
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
+    callbackURL: '/auth/google/callback',
+    proxy: true
   },
   // Recieves the tokens and profile object for the user after /auth/google/callback route.
   // Creates and saves new User collection instance for the specific user to the users collection.
