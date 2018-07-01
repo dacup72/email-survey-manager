@@ -11,16 +11,16 @@ require('./services/passport');
 
 const mongoURI = process.env.MONGODB_URI || keys.mongoURI;
 // Connect mongoose to mLab cloud database
-mongoose.connect(mongoURI).catch(function(err) {
+// mongoose.connect(mongoURI).catch(function(err) {
   // If the connection to mLab fails connect to localhost database
-  if(err) {
-    console.log('Connection error: ' + err);
+  // if(err) {
+  //   console.log('Connection error: ' + err);
     mongoose.connect('mongodb://localhost/emailsurveymanager');
-    console.log('Database connected on Localhost');
-  } else {
-    console.log('Database connected to mLab');
-  }
-});
+    // console.log('Database connected on Localhost');
+  // } else {
+  //   console.log('Database connected to mLab');
+  // }
+// });
 
 // Initializes express 
 const app = express();

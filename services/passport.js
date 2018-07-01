@@ -17,7 +17,27 @@ passport.use(new GoogleStrategy({
 }, 
 // Recieves the tokens and profile object for the user after /auth/google/callback route.
 // Creates and saves new User collection instance for the specific user to the users collection.
+// Also checks to see if the user already exists when logging in.
 (accessToken, refreshToken, profile, done) => {
-  new User({googleId: profile.id}).save();
+  User.findOne({ googleId: profile.id })
+  .then(existingUser => {
+    if(existingUser) {
+      // User's google ID already exists in database
+      done(null, existingUser);
+    }
+    else {
+      // User's google ID does NOT exist in the database so make a new entry in the database for that user
+      new User({googleId: profile.id})
+      .save()
+      .then(user => done(null, user));
+    }
+  })
+
+ 
+    
+  
+  
+
+  
 })
 );
