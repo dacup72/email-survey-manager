@@ -12,10 +12,8 @@ require('./models/User');
 // Initialize Passport.js config
 require('./services/passport');
 
-// Assign mongoURI to either Heroku mLab or local mongo database
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/emailsurveymanager';
 // Connect to chosen mongoURI
-mongoose.connect(mongoURI);
+mongoose.connect(keys.mongoURI);
 
 // Initializes express 
 const app = express();
