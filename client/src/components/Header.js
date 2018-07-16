@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   // Determines content to show based on users login status
   renderContent() {
     switch (this.props.auth) {
-      case null: 
-      return;
+      case null:
+        return; // returns nothing if null
 
-      case false:;
-      return <li><a href="/auth/google">Login With Google</a></li>;
+      case false: ;
+        return <li><a href="/auth/google">Login With Google</a></li>;
 
-      default: 
+      default:
         return <li><a href="/api/logout">Logout</a></li>;
-      
     }
   }
 
@@ -23,7 +23,12 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <a className="left brand-logo">Email Survey Manager</a>
+          <Link 
+            to={this.props.auth ? "/surveys" : "/"} 
+            className="left brand-logo"
+          >
+            E.S.M
+          </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}
           </ul>
