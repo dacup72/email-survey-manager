@@ -22,17 +22,22 @@ module.exports = app => {
   );
 
   // Log out the current user
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-    res.send(req.user);
-  });
+  app.get(
+    '/api/logout',
+    (req, res) => {
+      req.logout();
+      res.redirect("/");
+    }
+  );
 
   // Gets access to authenticated user and sends it to front end
-  app.get('/api/current_user', (req, res) => {
-    // "req.session" contains the cookies data
-    // res.send(req.session);
-
-    res.send(req.user);
-  });
+  app.get(
+    '/api/current_user',
+    (req, res) => {
+      // "req.session" contains the cookies data
+      // res.send(req.session);
+      res.send(req.user);
+    }
+  );
 
 };
