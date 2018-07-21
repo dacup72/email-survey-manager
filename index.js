@@ -12,6 +12,7 @@ require('./models/User');
 // Initialize Passport.js config
 require('./services/passport');
 
+
 // Connect to chosen mongoURI
 mongoose.connect(keys.mongoURI);
 
