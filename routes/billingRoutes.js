@@ -1,14 +1,11 @@
 const keys = require('../config/keys');
 const stripe = require("stripe")(keys.stripeSecretKey);
+const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = app => {
   // Handle token object recieved back from stripe api
-  app.post('/api/stripe', async (req, res) => {
-    if (!req.user) {
-      // 401 means unauthorized (need to be logged in)
-      return res.status(401).send({ error: 'You must log in!' });
-    }
-
+  // Runs requireLogin middleware automatically whenever a req comes in from the POST method
+  app.post('/api/stripe', requireLogin, async (req, res) => {
     const charge = await stripe.charges.create({
       amount: 500,
       currency: 'usd',
@@ -21,8 +18,6 @@ module.exports = app => {
     const user = await req.user.save();
 
     res.send(user);
-
-
   });
 };
 
