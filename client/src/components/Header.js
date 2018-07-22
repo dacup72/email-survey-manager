@@ -15,8 +15,8 @@ class Header extends Component {
 
       default:
         return [
-          <li><Payments /></li>,
-          <li><a href="/api/logout">Logout</a></li>
+          <li key="1"><Payments /></li>,
+          <li key="2"><a href="/api/logout">Logout</a></li>
         ];
     }
   }
@@ -31,7 +31,7 @@ class Header extends Component {
             to={this.props.auth ? "/surveys" : "/"}
             className="left brand-logo"
           >
-            E.S.M
+            Email Survey Manager
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             {this.renderContent()}

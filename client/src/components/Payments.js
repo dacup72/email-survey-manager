@@ -3,10 +3,11 @@ import StripeCheckout from 'react-stripe-checkout';
 
 class Payments extends Component {
   render() {
-    debugger;
-    
     return (
       <StripeCheckout
+        name="Email Survey Manager"
+        description="$5 for 5 email credits"
+
         // How much to charge the user
         // 500 cents (5 US dollars)
         amount={500}
@@ -16,7 +17,9 @@ class Payments extends Component {
 
         // API key
         stripeKey={process.env.REACT_APP_STRIPE_KEY}
-      />
+      >
+        <button className="btn">Add Credits</button>
+      </StripeCheckout>
     );
   }
 }
