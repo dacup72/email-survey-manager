@@ -40,11 +40,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-require('./routes/authRoutes')(app); 
-require('./routes/billingRoutes')(app); 
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
 // If in production mode then handle this...
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   // If Express recognizes this route from the front end react router then
   // Express will server up production assets
   // like main.js file, or main.css file
