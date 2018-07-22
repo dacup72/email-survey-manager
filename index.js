@@ -35,6 +35,7 @@ app.use(
 );
 
 // Initialize Passport with Express
+// sets req.user to the current user database object that is logged in
 app.use(passport.initialize());
 app.use(passport.session());
 

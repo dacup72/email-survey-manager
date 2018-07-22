@@ -4,7 +4,11 @@ const { Schema } = mongoose;
 
 // Creating the new Schema to establish rules for the mongoose user class (collection)
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  credits: {
+    type: Number,
+    default: 0
+  }
 });
 
 // Setting up the database collection called users
