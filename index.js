@@ -43,6 +43,21 @@ app.use(passport.session());
 require('./routes/authRoutes')(app); 
 require('./routes/billingRoutes')(app); 
 
+// If in production mode then handle this...
+if(process.env.NODE_ENV === 'production') {
+  // If Express recognizes this route from the front end react router then
+  // Express will server up production assets
+  // like main.js file, or main.css file
+  app.use(express.static('client/build'));
+
+  // Express will serve up the index.html file
+  // if it doesn't recognize the route from react routes (front end routes)
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+};
+
 // Sets up PORT for Node.js to listen on.
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
