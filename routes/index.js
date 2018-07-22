@@ -1,3 +1,4 @@
 module.exports = {
-  authRoutes: require('./authRoutes')
+  authRoutes: require('./authRoutes'),
+  billingRoutes: require('./billingRoutes')
 }

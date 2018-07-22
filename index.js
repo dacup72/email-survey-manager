@@ -1,5 +1,6 @@
 // Imports
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
 // Cookie based session middleware 
@@ -19,6 +20,9 @@ mongoose.connect(keys.mongoURI);
 // Initializes express 
 const app = express();
 
+// Adds body parser middleware to express
+app.use(bodyParser.json());
+
 // Set up cookie session
 app.use(
   // Extracts cookie data and assigns it to req.session
@@ -36,6 +40,7 @@ app.use(passport.session());
 
 // Routes
 require('./routes/authRoutes')(app); 
+require('./routes/billingRoutes')(app); 
 
 // Sets up PORT for Node.js to listen on.
 const PORT = process.env.PORT || 8080;
