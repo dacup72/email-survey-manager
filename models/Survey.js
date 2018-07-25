@@ -17,6 +17,13 @@ const surveySchema = new Schema({
     type: Number,
     default: 0
   },
+  // Sets up relationship between survey and the user it belongs to
+  _user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  dateSent: Date,
+  lastResponded: Date
 });
 
 mongoose.model('surveys', surveySchema);
