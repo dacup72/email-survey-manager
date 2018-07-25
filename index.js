@@ -9,6 +9,7 @@ const passport = require('passport');
 
 // Initialize mongoose / mongoDB collection for users
 require('./models/User');
+require('./models/Survey');
 
 // Initialize Passport.js config
 require('./services/passport');
