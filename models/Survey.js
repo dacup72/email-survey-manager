@@ -6,7 +6,16 @@ const surveySchema = new Schema({
   subject: String,
   body: String,
   // Array containing list of strings
-  recipients: [String]
+  // Stores "sub document collection"
+  recipients: [String],
+  yes: {
+    type: Number,
+    default: 0
+  },
+  no: {
+    type: Number,
+    default: 0
+  },
 });
 
 mongoose.model('surveys', surveySchema);
