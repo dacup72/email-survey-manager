@@ -1,4 +1,5 @@
 module.exports = {
   User: require('./User'),
-  Survey: require('./Survey')
+  Survey: require('./Survey'),
+  Recipient: require('.Recipient')
 }
