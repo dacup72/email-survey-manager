@@ -13,6 +13,15 @@ module.exports = app => {
   app.post("api/surveys", requireLogin, requireCredits, (req, res) => {
     // ES6 destructuring to obtain differenty properties from an object
     const { title, subject, body, recipients } = req.body;
-    
+
+    // ES6 syntax for defining "exact same" named key value pairs
+    const survey = new Survey({
+      title,
+      subject,
+      body,
+      recipients: {
+        email: recipients
+      }
+    });
   });
 };
