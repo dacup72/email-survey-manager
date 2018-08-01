@@ -14,13 +14,16 @@ module.exports = app => {
     // ES6 destructuring to obtain differenty properties from an object
     const { title, subject, body, recipients } = req.body;
 
-    // ES6 syntax for defining "exact same" named key value pairs
     const survey = new Survey({
+      // ES6 syntax for defining "exact same" named key value pairs
       title,
       subject,
       body,
       // Takes comma delimited string of emails, splits it into array, and returns array of email objects
-      recipients: recipients.split(",").map(email => ({ email }))
+      recipients: recipients.split(",").map(email => ({ email })),
+      // Passes in mongooses automatically generated id for the User model 
+      _user: req.user.id,
+      dateSent: Date.now()
     });
   });
 };
