@@ -19,9 +19,8 @@ module.exports = app => {
       title,
       subject,
       body,
-      recipients: {
-        email: recipients
-      }
+      // Takes comma delimited string of emails, splits it into array, and returns array of email objects
+      recipients: recipients.split(",").map(email => ({ email }))
     });
   });
 };
