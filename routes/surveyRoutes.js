@@ -1,8 +1,8 @@
 // Require mongoose to fix "cannot require mongoose model multiple times" error with some testing frameworks
 const mongoose = require("mongoose");
-
 const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
+const Mailer = require('../services/Mailer');
 
 const Survey = mongoose.model('surveys');
 
@@ -27,6 +27,8 @@ module.exports = app => {
       dateSent: Date.now()
     });
 
+
+    // Send emails to sendGrid
     
   });
 };
