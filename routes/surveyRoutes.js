@@ -14,6 +14,9 @@ module.exports = app => {
   app.post("api/surveys", requireLogin, requireCredits, (req, res) => {
     // ES6 destructuring to obtain differenty properties from an object
     const { title, subject, body, recipients } = req.body;
+      // Examples:
+      // const title = req.body.title;
+      // const subject = req.body.subject;
 
     // create new Survey model object for creating and send new emails
     const survey = new Survey({
