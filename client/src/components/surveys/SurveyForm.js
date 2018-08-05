@@ -50,6 +50,20 @@ class SurveyForm extends Component {
   };
 };
 
+// values is passed into the function by reduxForm
+// values is the object recieved by the form
+// the errors returned are a part of the meta object passed into the SurveyFields component
+function validate(values) {
+  const errors = {};
+
+  if(!values.title) {
+    errors.title = 'You must provide a title';
+  }
+
+  return errors;
+}
+
 export default reduxForm({
+  validate,
   form: 'surveyForm'
 })(SurveyForm);
