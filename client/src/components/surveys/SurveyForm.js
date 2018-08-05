@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 // Each field is going to have a component containing our custom surveyField components
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
+import validateEmails from '../../utils/validateEmails';
 
 // All caps means do not change this const
 const FIELDS = [
@@ -56,9 +57,15 @@ class SurveyForm extends Component {
 function validate(values) {
   const errors = {};
 
-  if(!values.title) {
-    errors.title = 'You must provide a title';
-  }
+  // Check for invalid emails
+  errors.emails = validateEmails(values.emails || '');
+
+  // Check if all input fields have a value
+  _.each(FIELDS, ({ name }) => {
+    if(!values[name]) {
+      errors[name] = 'You must provide a value'
+    };
+  });
 
   return errors;
 }
