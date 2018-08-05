@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+// SurveyField contains logic to render a single label and text input
+import React from 'react';
 
-class SurveyField extends Component {
-  render() {
-    return (
-      test
-    );
-  };
+export default props => {
+  console.log("SurveyField props: ", props);
+  return (
+    <div>
+      <input />
+    </div>
+  );
 };
-
-export default SurveyField;
