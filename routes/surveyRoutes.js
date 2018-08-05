@@ -11,7 +11,7 @@ module.exports = app => {
   // Post route for creating new surveys sending big emails with those surveys
   // Make sure user is logged in (functions in the line of the post request are envoked in order)
   // Make sure user has enough credits
-  app.post("api/surveys", requireLogin, requireCredits, (req, res) => {
+  app.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
     // ES6 destructuring to obtain differenty properties from an object
     const { title, subject, body, recipients } = req.body;
       // Examples:
@@ -34,6 +34,6 @@ module.exports = app => {
 
     // Send emails to sendGrid
     const mailer = new Mailer(survey, surveyTemplate(survey));
-
+    mailer.send();
   });
 };
