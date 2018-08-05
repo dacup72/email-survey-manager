@@ -1,11 +1,13 @@
 // SurveyField contains logic to render a single label and text input
 import React from 'react';
 
-export default props => {
-  console.log("SurveyField props: ", props);
+// input is props.input
+export default ({ input, label }) => {
   return (
     <div>
-      <input />
+      <label>{label}</label>
+      {/* Takes all of the properties on input and adds it to the input tag */}
+      <input {...input} />
     </div>
   );
 };
