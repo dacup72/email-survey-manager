@@ -8,6 +8,11 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
+  // Get route to simply display a thank you message to user after filling out the survey
+  app.get('/api/surveys/thanks', (req, res) => {
+    res.send('Thank you for completing the survey!');
+  });
+
   // Post route for creating new surveys sending big emails with those surveys
   // Make sure user is logged in (functions in the line of the post request are envoked in order)
   // Make sure user has enough credits

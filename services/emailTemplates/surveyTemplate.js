@@ -7,10 +7,10 @@ module.exports = survey => {
         <h3>I'd like your input!</h3>
         <p>${survey.body}</p>
         <div>
-          <a href="${keys.redirectDomain}">Yes</a>
+          <a href="${keys.redirectDomain}/api/surveys/thanks">Yes</a>
         </div>
         <div>
-          <a href="${keys.redirectDomain}">No</a>
+          <a href="${keys.redirectDomain}/api/surveys/thanks">No</a>
         </div>
       </body>
     </html>

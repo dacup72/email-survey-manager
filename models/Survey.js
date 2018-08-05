@@ -24,6 +24,8 @@ const surveySchema = new Schema({
   },
   dateSent: Date,
   lastResponded: Date
+
+  // TODO: Add in redirect url for thank you message (So user can add their own custom redirects)
 });
 
 mongoose.model('surveys', surveySchema);
