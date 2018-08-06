@@ -8,18 +8,12 @@ import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
+import formFields from './formFields';
 
-// All caps means do not change this const
-const FIELDS = [
-  { label: 'Survey Title', name: 'title' },
-  { label: 'Subject Line', name: 'subject' },
-  { label: 'Email Body', name: 'body' },
-  { label: 'Recipient List', name: 'emails' }
-];
 
 class SurveyForm extends Component {
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -30,7 +24,7 @@ class SurveyForm extends Component {
         />
       );
     });
-  };
+  }
 
   render() {
     return (
@@ -58,10 +52,10 @@ function validate(values) {
   const errors = {};
 
   // Check for invalid emails
-  errors.emails = validateEmails(values.emails || '');
+  errors.recipients = validateEmails(values.recipients || '');
 
   // Check if all input fields have a value
-  _.each(FIELDS, ({ name }) => {
+  _.each(formFields, ({ name }) => {
     if(!values[name]) {
       errors[name] = 'You must provide a value'
     };
@@ -70,7 +64,9 @@ function validate(values) {
   return errors;
 }
 
+// destroyOnUnmount: false prevents surveyForm from being cleared on this scope when this component is unmounted
 export default reduxForm({
   validate,
-  form: 'surveyForm'
+  form: 'surveyForm',
+  destroyOnUnmount: false
 })(SurveyForm);
