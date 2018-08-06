@@ -16,8 +16,8 @@ module.exports = app => {
     res.send('Thank you for completing the survey!');
   });
 
-  // Webhooks handler
-  app.post('/api/surveys/webhooks', (req, res) => {
+  // Webhooks handler to recieve survey responses and update the database with those responses
+  app.post('/api/surveys/:surveyId/:choice', (req, res) => {
     // extracts specific pieces of the url
     const p = new Path('/api/surveys/:surveyId/:choice');
 
@@ -34,6 +34,26 @@ module.exports = app => {
       .compact()
       // removes 'email' and 'surveyId; duplicates from compactEvents
       .uniqBy('email', 'surveyId')
+      .each(({ email, surveyId, choice }) => {
+        // Finds specific recipient that clicked on the specific survey in their email
+        // and updates the responded value to true if its false
+        Survey.updateOne({
+          _id: surveyId,
+          recipients: {
+            $elemMatch: { email: email, responded: false }
+          }
+        }, {
+            // Mongo operator that finds choice property and increments it by 1
+            $inc: { [choice]: 1 },
+            // Mongo operator that in the survey that was found looks at its reciepients and uses
+            // the $ (index num) to find the one we care about and updates the responded property on it to true
+            $set: { 'recipients.$.responded': true },
+            lastResponded: new Date()
+          }
+        // exec() executes the query
+        ).exec();
+
+      })
       .value();
 
     // Respond to SendGrid so that they do not ping us with the same object
