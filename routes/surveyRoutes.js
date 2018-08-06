@@ -1,3 +1,6 @@
+const Path = require('path-parser').default;
+const _ = require('lodash');
+const { URL } = require('url');
 // Require mongoose to fix "cannot require mongoose model multiple times" error with some testing frameworks
 const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
@@ -13,11 +16,22 @@ module.exports = app => {
     res.send('Thank you for completing the survey!');
   });
 
-  // Webhook debugging route
+  // Webhooks handler
   app.post('/api/surveys/webhooks', (req, res) => {
-    console.log(req.body);
-    res.send({});
-  })
+    const events = _.map(req.body, ({ url, email }) => {
+      // extracts the route from the sendgrid object recieved
+      const pathname = new URL(url).pathname;
+      // extracts specific pieces of the url
+      const p = new Path('/api/surveys/:surveyId/:choice');
+      // p.test(pathname) will return null if either surveyId or choice are not recieved
+      const match = p.test(pathname);
+      if(match) {
+        return { email, surveyId: match.surveyId, choice: match.choice };
+      };
+    });
+    // compact function iterates through an array and removes all undefineds from it
+    const compactEvents = _.compact(events);
+  });
 
   // Post route for creating new surveys sending big emails with those surveys
   // Make sure user is logged in (functions in the line of the post request are envoked in order)
