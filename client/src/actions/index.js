@@ -13,3 +13,13 @@ export const handleToken = token => async dispatch => {
 
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+export const submitSurvey = (values, history) => async dispatch => {
+  const res = await axios.post('/api/surveys', values);
+
+  // history comes from the withRouter function used in SurveyFormRevew Component
+  // the .push() on history allows us to select a route to navigate through our app
+  history.push('/surveys');
+  dispatch({ type: FETCH_USER, payload: res.data });
+};
+

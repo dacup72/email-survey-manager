@@ -13,6 +13,12 @@ module.exports = app => {
     res.send('Thank you for completing the survey!');
   });
 
+  // Webhook debugging route
+  app.post('/api/surveys/webhooks', (req, res) => {
+    console.log(req.body);
+    res.send({});
+  })
+
   // Post route for creating new surveys sending big emails with those surveys
   // Make sure user is logged in (functions in the line of the post request are envoked in order)
   // Make sure user has enough credits
