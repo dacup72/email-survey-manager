@@ -11,6 +11,14 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
+  // Retrieves all surveys belonging to a specific user
+  app.get('/api/surveys', requireLogin, async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id });
+
+    res.send(surveys);
+  });
+
+
   // Get route to simply display a thank you message to user after filling out the survey
   app.get('/api/surveys/thanks', (req, res) => {
     res.send('Thank you for completing the survey!');
