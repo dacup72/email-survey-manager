@@ -18,19 +18,27 @@ module.exports = app => {
 
   // Webhooks handler
   app.post('/api/surveys/webhooks', (req, res) => {
-    const events = _.map(req.body, ({ url, email }) => {
-      // extracts the route from the sendgrid object recieved
-      const pathname = new URL(url).pathname;
-      // extracts specific pieces of the url
-      const p = new Path('/api/surveys/:surveyId/:choice');
-      // p.test(pathname) will return null if either surveyId or choice are not recieved
-      const match = p.test(pathname);
-      if(match) {
-        return { email, surveyId: match.surveyId, choice: match.choice };
-      };
-    });
-    // compact function iterates through an array and removes all undefineds from it
-    const compactEvents = _.compact(events);
+    // extracts specific pieces of the url
+    const p = new Path('/api/surveys/:surveyId/:choice');
+
+    const events = _.chain(req.body)
+      .map(({ url, email }) => {
+        // new URL extracts the route from the sendgrid object recieved
+        // p.test(pathname) will return null if either surveyId or choice are not recieved
+        const match = p.test(new URL(url).pathname);
+        if (match) {
+          return { email, surveyId: match.surveyId, choice: match.choice };
+        };
+      })
+      // compact function iterates through an array and removes all undefineds from it
+      .compact()
+      // removes 'email' and 'surveyId; duplicates from compactEvents
+      .uniqBy('email', 'surveyId')
+      .value();
+
+    // Respond to SendGrid so that they do not ping us with the same object
+    // multiple times due to us not sending a response
+    res.send({});
   });
 
   // Post route for creating new surveys sending big emails with those surveys
