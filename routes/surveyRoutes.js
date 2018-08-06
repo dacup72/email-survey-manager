@@ -18,7 +18,6 @@ module.exports = app => {
     res.send(surveys);
   });
 
-
   // Get route to simply display a thank you message to user after filling out the survey
   app.get('/api/surveys/thanks', (req, res) => {
     res.send('Thank you for completing the survey!');
