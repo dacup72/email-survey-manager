@@ -26,7 +26,7 @@ module.exports = app => {
   });
 
   // Webhooks handler to recieve survey responses and update the database with those responses
-  app.post('/api/surveys/:surveyId/:choice', (req, res) => {
+  app.post('/api/surveys/webhooks', (req, res) => {
     // extracts specific pieces of the url
     const p = new Path('/api/surveys/:surveyId/:choice');
 
