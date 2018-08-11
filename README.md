@@ -76,7 +76,7 @@ A step by step series of examples that tell you how to get a development env run
 ```
 Card Number: 4242 4242 4242 4242
 Expiration Date: Any date in the future
-CSB: 123
+CVC: 123
 ```
 
 ## Built With
