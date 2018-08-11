@@ -88,7 +88,7 @@ CVC: 123
 * [Mongoose](http://mongoosejs.com/)
 * [Axios](https://www.npmjs.com/package/axios)
 * [React.js](https://reactjs.org/)
-* [React Redux](https://redux.js.org/)
+* [Redux.js](https://redux.js.org/)
 * [Passport.js](http://www.passportjs.org/)
 * [Google OAuth](https://developers.google.com/identity/protocols/OAuth2)
 * [Cookie Session](https://www.npmjs.com/package/cookie-session)
